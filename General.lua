@@ -83,11 +83,15 @@ function General.LoadTooltip(tooltip, itemString)
 		local saleRate = Math.Round(100*totalSaleNum / (totalSaleNum + totalFailed), 1)
 		local avgPostLoss = vendorSell * .6 * (1-saleRate/100) 
 		local roi = Math.Round(100 * (avgSalePrice - avgBuyPrice - avgPostLoss) / avgBuyPrice, 1)
+		local profit = Math.Round(totalSaleNum * (avgSalePrice - avgBuyPrice - avgPostLoss))
+
+
 		tooltip:AddLine(L["Inventory"], format("|cffffffff"..numHave.."|r owned at %s per", tooltip:FormatMoney(avgBuyPrice)))
 		tooltip:AddLine(L["Sold"], format("|cffffffff%d|r sold at %s per", totalSaleNum, tooltip:FormatMoney(avgSalePrice)))
 		if totalSaleNum>0 and avgBuyPrice>0 then
 			tooltip:AddLine(L["Stats"], format("|cffffffff"..roi.."%%|r ROI |cffffffff"..saleRate.."%%|r SR"))
 		end
+		tooltip:AddLine(L["Lifetime Profit"], format("|cffffffff|r %s", tooltip:FormatMoney(profit)))
 	
 	end
 
